@@ -15,17 +15,17 @@ describe('1 - Teste a função fetchProducts', () => {
 
   it('Verifica se o endpoint foi chamado corretamente', () => {
     const endpoint = 'https://api.mercadolibre.com/sites/MLB/search?q=computador'
-    fetchProducts('qualquercoisa')
+    fetchProducts('computador')
     expect(fetch).toBeCalledWith(endpoint)
   })
 
-  it('Testa se a função fetchProducts com o parâmetro computador retorna um banco de dados igual ao de computadorSearch', async () => {
-    const db = await fetchProducts('computador')
-    expect(db).toEqual(computadorSearch)
-  })
+  it('verifica se ao chamada corretamente, a função retorna um banco de dados igual ao de computadorSearch', async () => {
+    const db = await fetchProducts('computador');
+    expect(db).toEqual(computadorSearch.results);
+  });
 
-  it('Testa se ao chamada sem parâmetro, a função retorna a mensagem de erro: "You must provide an url"', async () => {
-    const test = fetchProducts()
-    expect(test).toThrowError(new Error('You must provide an url'));
-  })
+  it('Verifica se, ao chamada sem parâmetro, a função retorna o erro: "You must provide an url"', async () => {
+    const response = await fetchProducts();
+    expect(response).toEqual(new Error('You must provide an url'));
+  });
 });
