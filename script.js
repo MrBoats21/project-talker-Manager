@@ -74,7 +74,19 @@ const removeItem = () => {
   });
 };
 
+const createLoading = async () => {
+  const message = document.createElement('h1');
+  const sectionClassContainer = document.querySelector('.items');
+  message.innerText = 'carregando...';
+  message.classList = 'loading';
+  sectionClassContainer.appendChild(message);
+
+  await fetchProducts('computador');
+  message.remove();
+};
+
 const start = async () => {
+  await createLoading();
   await addProduct();
   await addEvent();
   await removeItem();
